@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "images")
-@CrossOrigin(origins = {"http://localhost:4200","https://petinder-deploy-test.netlify.app/"})
+@CrossOrigin
 public class ImageController {
 
     @GetMapping(path = "{imageName}", produces = "image/jpeg")

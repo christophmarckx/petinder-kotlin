@@ -7,7 +7,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "messages")
-@CrossOrigin(origins = {"http://localhost:4200","https://petinder-deploy-test.netlify.app/"})
+@CrossOrigin
 public class MessageController {
 
     private final MessageService messageService;
