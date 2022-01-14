@@ -12,7 +12,7 @@ import java.util.Map;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = {"http://localhost:4200","https://petinder-deploy-test.netlify.app/"})
 @RequestMapping(value = "pets")
 public class PetController {
 
