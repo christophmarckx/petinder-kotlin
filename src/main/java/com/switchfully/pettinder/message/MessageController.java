@@ -7,6 +7,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "messages")
+@CrossOrigin
 public class MessageController {
 
     private final MessageService messageService;
