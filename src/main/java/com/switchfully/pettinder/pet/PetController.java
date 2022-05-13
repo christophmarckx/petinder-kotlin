@@ -57,8 +57,8 @@ public class PetController {
     }
 
     @PostMapping(path = "/sendText")
-    public void sendWhatsApp(@RequestBody String name) {
+    public void sendWhatsApp(@RequestBody WhatsappDTO whatsappDTO) {
         logger.info("Text sent");
-        petService.sendWhatsApp(name);
+        petService.sendWhatsApp(whatsappDTO.getName());
     }
 }

@@ -1,5 +1,6 @@
 package com.switchfully.pettinder.pet;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 
@@ -11,8 +12,15 @@ import java.util.List;
 @Service
 @Transactional
 public class PetService {
-    public static final String ACCOUNT_SID = System.getenv("ACCOUNT_SID");
-    public static final String AUTH_TOKEN = System.getenv("AUTH_TOKEN");
+
+    @Value("${twilio.account.sid}")
+    private String accountSid;
+    @Value("${twilio.auth.token}")
+    private String authToken;
+    @Value("${whatsapp.telephone.number.to}")
+    private String whatsAppTelephoneNumberTo;
+    @Value("${whatsapp.telephone.number.from}")
+    private String whatsAppTelephoneNumberFrom;
 
     private final PetRepository petRepository;
     private final PetMapper petMapper;
@@ -43,11 +51,11 @@ public class PetService {
     }
 
     public void sendWhatsApp(String name) {
-        name = name.substring(9, name.length() - 2);
-         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
-            Message message = Message.creator(
-                    new com.twilio.type.PhoneNumber(System.getenv("PHONE_NUMBER")),
-                    new com.twilio.type.PhoneNumber("whatsapp:+14155238886"),
+         Twilio.init(accountSid, authToken);
+        whatsAppTelephoneNumberFrom = "whatsapp:+14155238886";
+        Message message = Message.creator(
+                    new com.twilio.type.PhoneNumber(whatsAppTelephoneNumberTo),
+                    new com.twilio.type.PhoneNumber(whatsAppTelephoneNumberFrom),
                     name + " just got a date with your pet!")
                     .create();
 
