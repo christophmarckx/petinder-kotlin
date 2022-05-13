@@ -1,5 +1,6 @@
 package com.switchfully.pettinder.pet;
 
+import com.twilio.type.PhoneNumber;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -51,11 +52,10 @@ public class PetService {
     }
 
     public void sendWhatsApp(String name) {
-         Twilio.init(accountSid, authToken);
-        whatsAppTelephoneNumberFrom = "whatsapp:+14155238886";
+        Twilio.init(accountSid, authToken);
         Message message = Message.creator(
-                    new com.twilio.type.PhoneNumber(whatsAppTelephoneNumberTo),
-                    new com.twilio.type.PhoneNumber(whatsAppTelephoneNumberFrom),
+                    new PhoneNumber(whatsAppTelephoneNumberTo),
+                    new PhoneNumber(whatsAppTelephoneNumberFrom),
                     name + " just got a date with your pet!")
                     .create();
 
