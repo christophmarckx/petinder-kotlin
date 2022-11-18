@@ -1,10 +1,13 @@
 package com.switchfully.pettinder.pet;
 
+import net.bytebuddy.pool.TypePool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +30,7 @@ public class PetController {
         return petService.getAllPets();
     }
 
+    // example using ResponseStatusException - This is Exception handling on a method level
     @GetMapping(path = "{name}", produces = "application/json")
     public PetDTO getPet(@PathVariable String name) {
         try {
@@ -60,5 +64,11 @@ public class PetController {
     public void sendWhatsApp(@RequestBody WhatsappDTO whatsappDTO) {
         logger.info("Text sent");
         petService.sendWhatsApp(whatsappDTO.getName());
+    }
+
+    // This is Exception handling for every method in *this* specific controller, for *this* specific Exception
+    @ExceptionHandler(IllegalArgumentException.class)
+    protected void illegalArgumentException(IllegalArgumentException ex, HttpServletResponse response) throws IOException {
+      response.sendError(BAD_REQUEST.value(), ex.getMessage());
     }
 }
